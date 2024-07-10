@@ -1,5 +1,5 @@
-const User = require('../../cvutchat-data/models/User');
-const generateToken = require('../../cvutchat-data/utils/generateToken');
+const User = require('../models/User');
+const generateToken = require('../utils/generateToken');
 
 const registerUser = async (req, res) => {
   const { username, password } = req.body;
