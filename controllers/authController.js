@@ -1,5 +1,5 @@
+// TODO Data service : Only strict mongo Read/Write operations
 const User = require('../models/User');
-const generateToken = require('../utils/generateToken');
 
 const registerUser = async (req, res) => {
   const { username, password } = req.body;
@@ -36,4 +36,17 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser };
+const getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error getting user' });
+  }
+};
+
+module.exports = { registerUser, loginUser, getUser };
