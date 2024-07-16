@@ -16,13 +16,22 @@ async function createUser(userData) {
   return user;
 }
 
-async function findUserById(id) {
-  return await User.findById(id);
-}
-
-// Read a User by username
-async function findUserByUsername(username) {
-  return await User.findOne({ username: username });
+async function findUser(identifier) {
+  // TODO Not ideal
+  let query = {};
+  
+  // First, try to find by _id if the identifier matches the ObjectId pattern
+  if (identifier.match(/^[0-9a-fA-F]{24}$/)) {
+    query._id = identifier;
+    const userById = await User.findOne(query);
+    if (userById) {
+      return userById;
+    }
+  }
+  
+  // If not found by _id or identifier does not match ObjectId pattern, try by username
+  query = { username: identifier };
+  return await User.findOne(query);
 }
 
 // Update a User's password
@@ -40,8 +49,7 @@ async function deleteUser(username) {
 
 module.exports = {
   createUser,
-  findUserByUsername,
-  findUserById,
+  findUser,
   updateUserPassword,
   deleteUser,
 };

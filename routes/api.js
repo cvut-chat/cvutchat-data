@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createUser, findUserByUsername, findUserById, updateUserPassword, deleteUser } = require('../models/User');
+const { createUser, findUser, updateUserPassword, deleteUser } = require('../models/User');
 
 // Create a User
 router.post('/user', async (req, res) => {
@@ -12,23 +12,10 @@ router.post('/user', async (req, res) => {
   }
 });
 
-// Read a User by username
-router.get('/user/:username', async (req, res) => {
-  try {
-    const user = await findUserByUsername(req.params.username);
-    if (user == null) {
-      return res.status(404).json({ message: 'Cannot find user' });
-    }
-    res.json(user);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-// Read a User by _id
+// Read a User by _id or username
 router.get('/user/:id', async (req, res) => {
   try {
-    const user = await findUserById(req.params.id);
+    const user = await findUser(req.params.id);
     if (user == null) {
       return res.status(404).json({ message: 'Cannot find user' });
     }
