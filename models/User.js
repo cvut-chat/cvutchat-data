@@ -16,6 +16,10 @@ async function createUser(userData) {
   return user;
 }
 
+async function findUserById(id) {
+  return await User.findById(id);
+}
+
 // Read a User by username
 async function findUserByUsername(username) {
   return await User.findOne({ username: username });
@@ -37,6 +41,7 @@ async function deleteUser(username) {
 module.exports = {
   createUser,
   findUserByUsername,
+  findUserById,
   updateUserPassword,
   deleteUser,
 };
