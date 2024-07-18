@@ -1,5 +1,3 @@
-// TODO Add _id
-// TODO Add Room model
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
