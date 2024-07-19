@@ -36,7 +36,8 @@ router.get('/rooms/:id/messages', async (req, res) => {
 // Send a message to a room
 router.post('/rooms/:id/messages/send', async (req, res) => {
   try {
-    const room = await sendMessage(req.params.id, req.body);
+    req.body.room = req.params.id;
+    const room = await sendMessage(req.body);
     res.json(room);
   } catch (err) {
     res.status(400).json({ message: err.message });
