@@ -22,23 +22,6 @@ async function getRooms() {
     return await Room.find();
 }
 
-// Get message history for a room
-async function getMessageHistory(id) {
-    const room = await Room.findById(id);
-    if (!room) {
-        throw new Error('Room not found');
-    }
-    return room.messages;
-}
-
-// Send a message to a room
-async function sendMessage(id, message) {
-    const room = await Room.findById(id);
-    room.messages.push(message);
-    await room.save();
-    return room;
-}
-
 // Delete a Room
 async function deleteRoom(id) {
     return await Room.findByIdAndDelete(id);
@@ -47,7 +30,5 @@ async function deleteRoom(id) {
 module.exports = {
     createRoom,
     getRooms,
-    sendMessage,
     deleteRoom,
-    getMessageHistory,
 };

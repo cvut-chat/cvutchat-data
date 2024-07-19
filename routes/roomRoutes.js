@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { createRoom, getRooms, sendMessage, getMessageHistory, deleteRoom } = require('../models/Room');
+const { createRoom, getRooms, deleteRoom } = require('../models/Room');
+const { sendMessage, getMessageHistory } = require('../models/Message');
 
 // Create a Room
 router.post('/rooms', async (req, res) => {
